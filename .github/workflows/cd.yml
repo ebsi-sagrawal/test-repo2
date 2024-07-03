@@ -38,7 +38,7 @@ jobs:
       - id: version
         run: |
           BRANCH_NAME=${{ github.ref_name }}
-          echo "${{BRANCH_NAME}}"
+          echo "$BRANCH_NAME"
 
           case "$BRANCH_NAME" in
             "main") ENV="sandbox" ;;
