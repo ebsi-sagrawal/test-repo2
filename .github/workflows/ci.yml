@@ -1,0 +1,33 @@
+name: cd
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Target SDLC environment'
+        required: true
+        default: 'sandbox'
+        type: choice
+        options:
+          - sandbox
+          - ci
+          - qa
+          - staging
+          - preview
+          - ctdev
+          - cttest
+          - prod
+
+  workflow_run:
+    workflows: ["ci"]
+    types:
+      - completed
+    branches:
+      - develop
+      - qa
+      - staging
+      - main
+
+jobs:
+  cd:
+    uses: ebsi-sagrawal/test-repo/.github/workflows/ci.yml@main
