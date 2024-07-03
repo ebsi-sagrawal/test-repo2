@@ -31,3 +31,5 @@ on:
 jobs:
   cd:
     uses: ebsi-sagrawal/test-repo/.github/workflows/cd.yml@main
+    with:
+      env: ${{ inputs.env }}
