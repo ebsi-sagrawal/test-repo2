@@ -48,9 +48,13 @@ jobs:
           echo "env=$ENV" >> "$GITHUB_OUTPUT"
           echo "$ENV"
         shell: bash
+        
   cd:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     needs: [cd-auto]
     uses: ebsi-sagrawal/test-repo/.github/workflows/cd.yml@main
     with:
       env: ${{ needs.cd-auto.outputs.env }}
+    concurrency:
+      group: ${{ needs.cd-auto.outputs.env }}
+      cancel-in-progress: true
